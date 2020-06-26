@@ -9,7 +9,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @Author: Sherlock
  * @Date 2020/6/22 22:36
  */
-@Mapper
 public interface UserMapper {
     void addUser(User user);
 }

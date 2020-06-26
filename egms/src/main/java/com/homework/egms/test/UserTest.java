@@ -23,8 +23,8 @@ public class UserTest {
     @Test
     public  void test1(){
         User user=new User();
-        user.setUserName("小红5");
-        user.setUserId((long)1024);
+        user.setUserName("小红7");
+        user.setUserId((long)1026);
         user.setBirthday(new Date());
         user.setFamilyId((long)1);
         user.setPassword("222");
