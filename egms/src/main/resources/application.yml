@@ -9,3 +9,9 @@ mybatis:
   type-aliases-package: com.homework.egms.bean
 server:
   port: 8000
+token:
+  header: Authorization
+ #  secret: abcdefghijklmnopqrstuvwxyz
+  secret: (EMOK:)_$^11244^%$_(IS:)_@@++--(COOL:)_++++_.sds_(GUY:)
+    #令牌有效期限（30分钟）
+  expireTime: 3600000
