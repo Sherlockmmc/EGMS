@@ -22,4 +22,5 @@ public class User {
     private String mate;
     private Date birthday;
     private String introduction;
+    private int role;
 }

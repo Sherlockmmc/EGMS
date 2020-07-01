@@ -14,7 +14,7 @@ import java.util.List;
  * @Date 2020/6/27 11:02
  */
 @Data
-public class JwtUser implements UserDetails {
+public class JwtUser implements UserDetails{
     private String username;
     private String password;
     //权限

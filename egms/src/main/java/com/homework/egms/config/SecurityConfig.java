@@ -52,24 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder
                 // 设置UserDetailsService 获取user对象
-                .userDetailsService(this.userDetailsService)
-                // 自定义密码验证方法
-                .passwordEncoder(new PasswordEncoder() {
-                    //这个方法没用
-                    @Override
-                    public String encode(CharSequence charSequence) {
-                        return "";
-                    }
-
-                    //自定义密码验证方法,charSequence:用户输入的密码，s:我们查出来的数据库密码
-                    @Override
-                    public boolean matches(CharSequence charSequence, String s) {
-                        String pass = MD5Util.string2MD5(charSequence.toString());
-                        System.out.println("用户输入密码:" + charSequence + "与数据库相同？" + s.equals(pass));
-                        return s.equals(pass);
-                    }
-                });
-
+                .userDetailsService(this.userDetailsService);
     }
     @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
     @Override
@@ -81,17 +64,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity
                 .formLogin()
                 .loginProcessingUrl("/user/login")
-//                .failureForwardUrl("/test/error") //这个没效果
                 .successHandler(authenticationSuccessHandler)
                 .failureHandler(authenticationFailHandler)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/login")
+                .antMatchers("/user/*")
                 .permitAll()
-                .antMatchers("/find")
+                .antMatchers("/admin/*")
                 .hasAnyAuthority("ROLE_admin","ROLE_user")
-                .antMatchers("/addFamily")
-                .hasAuthority("ROLE_admin")
               //  .anyRequest().authenticated()
                 .and().exceptionHandling();
                // .authenticationEntryPoint(authenticationEntryPoint);

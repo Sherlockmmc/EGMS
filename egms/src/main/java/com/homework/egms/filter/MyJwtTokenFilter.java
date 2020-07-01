@@ -34,7 +34,7 @@ public class MyJwtTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
-        System.out.println("进入token过滤器");
+    /*    System.out.println("进入token过滤器");
         String authHeader = httpServletRequest.getHeader(tokenHeader);
 
         if (authHeader != null && authHeader.startsWith(tokenHead)) {
@@ -57,6 +57,6 @@ public class MyJwtTokenFilter extends OncePerRequestFilter {
             }
         }
         filterChain.doFilter(httpServletRequest, httpServletResponse);
+    }*/
     }
-
 }
