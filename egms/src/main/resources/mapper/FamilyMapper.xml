@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.homework.egms.mapper.FamilyMapper">
+
+    <insert id="addFamily" parameterType="com.homework.egms.bean.Family">
+        INSERT INTO families(family_name,last_name,introduction,members,times)
+        VALUES (#{familyName},#{lastName},#{introduction},#{members},#{times})
+    </insert>
+
+    <delete id="deletFamily" parameterType="java.lang.Long">
+        DELETE FROM families WHERE family_id=#{familyId}
+    </delete>
+
+    <update id="updateFamily" parameterType="com.homework.egms.bean.Family">
+        UPDATE families SET family_name=#{familyName},last_name=#{lastName},
+        introduction=#{introduction},members=#{members},times=#{times}
+        WHERE family_id=#{familyId}
+    </update>
+
+    <select id="findFamily" parameterType="java.lang.Long" resultType="com.homework.egms.bean.Family">
+        SELECT * FROM families WHERE family_id=#{familyId}
+    </select>
+
+    <select id="countAll" parameterType="java.lang.Long">
+        SELECT members FROM families WHERE family_id=#{familyId}
+    </select>
+
+
+</mapper>

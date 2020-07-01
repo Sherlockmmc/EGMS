@@ -10,5 +10,19 @@ import org.apache.ibatis.annotations.Mapper;
  * @Date 2020/6/22 22:36
  */
 public interface UserMapper {
-    void addUser(User user);
+    //增
+    int addUser(User user);
+    //删
+    int deletUser(long userId);
+    //改
+    int updateUser(User user);
+    //查
+    User findById(long userId);
+    //查询密码
+    String findPwd(long userId);
+    //查询用户权限
+    int findAuthority(long userId);
+    //查询兄弟姐妹
+    User findsiblings(long fatherId);
+
 }

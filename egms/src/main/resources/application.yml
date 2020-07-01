@@ -3,7 +3,7 @@ spring:
     username: root
     password: rootroot
     url: jdbc:mysql://localhost:3306/egms?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mysql.jdbc.Driver
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.homework.egms.bean
