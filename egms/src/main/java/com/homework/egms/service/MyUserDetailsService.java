@@ -1,6 +1,7 @@
 package com.homework.egms.service;
 
 import com.homework.egms.bean.JwtUser;
+import com.homework.egms.bean.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,18 +22,19 @@ import java.util.List;
  */
 @Service
 public  class MyUserDetailsService implements UserDetailsService {
-
+    @Resource
+    UserServiceImp userService;
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
-        GrantedAuthority au = new SimpleGrantedAuthority("ROLE_USER");
-        list.add(au);
-        //123456 自定义MD5加密后=e10adc3949ba59abbe56e057f20f883e
-        JwtUser jwtUser = new JwtUser(s,"e10adc3949ba59abbe56e057f20f883e",list);
-        if (jwtUser == null) {
-            throw new UsernameNotFoundException(String.format("No user found with username."));
+    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
+        long id=Long.parseLong(userId);
+        User user=userService.findById(id);
+        if(user==null){
+            throw new UsernameNotFoundException("登录用户：" + userId+ " 不存在");
         }
-        System.out.println(jwtUser);
-        return jwtUser;
+        List<SimpleGrantedAuthority> authorities=new ArrayList<>();
+        int role=user.getRole();
+        String s = String.valueOf(role);
+        authorities.add(new SimpleGrantedAuthority((s)));
+        return new org.springframework.security.core.userdetails.User(userId,user.getPassword(), authorities);
     }
 }

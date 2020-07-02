@@ -1,6 +1,8 @@
 package com.homework.egms.commn;
 
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.util.HashMap;
 
 /**
@@ -10,7 +12,7 @@ import java.util.HashMap;
  * @Date 2020/6/29 18:40
  */
 //操作消息提醒
-public class RestResult  extends HashMap<String, Object> {
+public class RestResult  extends JSONObject {
     private static final long serialVersionUID = 1L;
 
     /** 状态码 */

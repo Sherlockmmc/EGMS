@@ -41,4 +41,9 @@ public class UserServiceImp implements UserService{
         String pwd=userMapper.findPwd(userId);
         return pwd;
     }
+
+    @Override
+    public int findAuthority(long userId) {
+        return userMapper.findAuthority(userId);
+    }
 }

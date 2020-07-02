@@ -26,7 +26,7 @@ public enum ExceptionEnum {
      * 数据已存在
      */
     CONFLICT(DataConflictException.class, HttpStatus.CONFLICT, ResultCode.DATA_ALREADY_EXISTED),
-    SMSCODE_WRONG(SmsCodeWrongException.class,HttpStatus.BAD_REQUEST,ResultCode.SMSCODE_WRONG),
+
     /**
      * 用户未登录
      */

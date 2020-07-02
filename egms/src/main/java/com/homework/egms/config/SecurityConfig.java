@@ -1,12 +1,12 @@
 package com.homework.egms.config;
 
 import com.homework.egms.exception.MyAuthenticationException;
-import com.homework.egms.filter.MyJwtTokenFilter;
+import com.homework.egms.filter.JwtAuthTokenFilter;
 import com.homework.egms.handler.MyAccessDeniedHandler;
-import com.homework.egms.handler.MyAuthenticationFailHandler;
+import com.homework.egms.handler.MyAuthenticationFailureHandler;
 import com.homework.egms.handler.MyAuthenticationSuccessHandler;
 import com.homework.egms.service.MyUserDetailsService;
-import com.homework.egms.utils.MD5Util;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
@@ -17,8 +17,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
+
+import javax.annotation.Resource;
 
 /**
  * @program: egms
@@ -37,10 +39,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     MyAuthenticationSuccessHandler authenticationSuccessHandler;
     //登录失败处理类
     @Autowired
-    MyAuthenticationFailHandler authenticationFailHandler;
+    MyAuthenticationFailureHandler authenticationFailHandler;
     //token 过滤器，解析token
-    @Autowired
-    MyJwtTokenFilter jwtTokenFilter;
+    @Resource
+    private JwtAuthTokenFilter jwtAuthTokenFilter;
     //权限不足处理类
     @Autowired
     MyAccessDeniedHandler myAccessDeniedHandler;
@@ -61,8 +63,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Override
     protected void  configure(HttpSecurity httpSecurity) throws Exception{
+
         httpSecurity
                 .formLogin()
+                .usernameParameter("userId").passwordParameter("password")
                 .loginProcessingUrl("/user/login")
                 .successHandler(authenticationSuccessHandler)
                 .failureHandler(authenticationFailHandler)
@@ -97,11 +101,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.
                 headers().frameOptions().disable().cacheControl();//解决IFrame拒绝问题、禁用缓存
         // 添加JWT filter
-        httpSecurity.addFilterBefore(jwtTokenFilter, LogoutFilter.class)
-                // 添加权限不足 filter
-                .exceptionHandling().accessDeniedHandler(myAccessDeniedHandler)
-                //其他异常处理类
-                .authenticationEntryPoint(myAuthenticationException);
+        httpSecurity.addFilterBefore(jwtAuthTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
     }
     @Override

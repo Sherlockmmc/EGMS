@@ -22,4 +22,6 @@ public interface UserMapper {
     User findById(long userId);
     //查询密码
     String findPwd(long userId);
+    //查询用户权限
+    int findAuthority(long userId);
 }

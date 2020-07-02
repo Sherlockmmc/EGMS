@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class PlatformResult implements Result {
+public class PlatformResult {
 
     private static final long serialVersionUID = 874200365941306385L;
 
