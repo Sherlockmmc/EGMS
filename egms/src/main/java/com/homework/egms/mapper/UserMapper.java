@@ -24,4 +24,7 @@ public interface UserMapper {
     String findPwd(long userId);
     //查询用户权限
     int findAuthority(long userId);
+    //查询兄弟姐妹
+    User findsiblings(long fatherId);
+
 }

@@ -2,13 +2,16 @@ package com.homework.egms.mapper;
 
 import com.homework.egms.bean.Incident;
 
-/**
- * @program: egms
- * @description:
- * @Author: Sherlock
- * @Date 2020/7/1 15:45
- */
 public interface IncidentMapper {
     //查询
     Incident findIncident(long incidentId);
+
+    //添加
+  /*  int addIncident(Incident incident);
+    //删除
+    int deletIncident(long incidentId);
+    //修改
+    int updateIncident(Incident incident);*/
+
 }
+

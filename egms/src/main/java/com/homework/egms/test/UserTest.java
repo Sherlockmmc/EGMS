@@ -24,11 +24,26 @@ public class UserTest {
     public  void test1(){
         User user=new User();
         user.setUserName("小红7");
-        user.setUserId((long)1026);
+        user.setUserId((long)1027);
         user.setBirthday(new Date());
         user.setFamilyId((long)1);
         user.setPassword("222");
         user.setSex("女");
         userService.addUser(user);
     }
+    @Test
+    public  void test2(){
+        userService.deletUser((long)1021);
+    }
+    @Test
+    public  void test3(){
+        User user= userService.findById((long)1020);
+        System.out.println(user.toString());
+    }
+    @Test
+    public  void test4(){}
+    @Test
+    public  void test5(){}
+    @Test
+    public  void test6(){}
 }
