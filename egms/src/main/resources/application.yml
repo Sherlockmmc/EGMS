@@ -8,7 +8,7 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.homework.egms.bean
 server:
-  port: 8000
+  port: 8080
 token:
   header: Authorization
  #  secret: abcdefghijklmnopqrstuvwxyz

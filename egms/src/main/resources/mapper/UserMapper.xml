@@ -3,7 +3,17 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.homework.egms.mapper.UserMapper">
-
+    <resultMap id="BaseResultMap" type="com.homework.egms.bean.User">
+        <id column="user_id" jdbcType="BIGINT" property="userId" />
+        <result column="user_name" jdbcType="VARCHAR" property="userName" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="sex" jdbcType="VARCHAR" property="sex" />
+        <result column="father_id" jdbcType="BIGINT" property="fatherId" />
+        <result column="mate" jdbcType="VARCHAR" property="mate" />
+        <result column="birthday"  property="birthday" />
+        <result column="introduction" jdbcType="VARCHAR" property="introduction" />
+        <result column="role" jdbcType="VARCHAR" property="role" />
+    </resultMap>
     <insert id="addUser">
         INSERT INTO users(user_id,user_name,password,sex,father_id,mate,birthday,introduction,role)
         VALUES (#{userId},#{userName},#{password},#{sex},#{fatherId},#{mate},#{birthday},#{introduction},#{role})
@@ -20,7 +30,7 @@
         where user_id=#{userId}
     </update>
     
-    <select id="findById" parameterType="java.lang.Long" resultType="com.homework.egms.bean.User">
+    <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
         SELECT * FROM users WHERE user_id=#{userId}
     </select>
 
@@ -32,7 +42,7 @@
         SELECT role FROM users WHERE user_id=#{userId}
     </select>
 
-    <select id="findsiblings" parameterType="java.lang.Long" resultType="com.homework.egms.bean.User">
+    <select id="findsiblings" parameterType="java.lang.Long" resultMap="BaseResultMap">
         SELECT * FROM users WHERE father_id=#{fatherId}
     </select>
 

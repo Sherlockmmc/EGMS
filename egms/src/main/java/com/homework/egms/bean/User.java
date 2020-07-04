@@ -2,8 +2,11 @@ package com.homework.egms.bean;
 
 import lombok.Data;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.GrantedAuthority;
 
+import javax.persistence.Transient;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @program: egms
@@ -22,5 +25,6 @@ public class User {
     private String mate;
     private Date birthday;
     private String introduction;
-    private int role;
+    private String role;
+
 }

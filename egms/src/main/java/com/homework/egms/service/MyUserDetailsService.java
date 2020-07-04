@@ -7,6 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -24,6 +25,8 @@ import java.util.List;
 public  class MyUserDetailsService implements UserDetailsService {
     @Resource
     UserServiceImp userService;
+    @Resource
+    BCryptPasswordEncoder passwordEncoder;
     @Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
         long id=Long.parseLong(userId);
@@ -32,9 +35,10 @@ public  class MyUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("登录用户：" + userId+ " 不存在");
         }
         List<SimpleGrantedAuthority> authorities=new ArrayList<>();
-        int role=user.getRole();
-        String s = String.valueOf(role);
-        authorities.add(new SimpleGrantedAuthority((s)));
-        return new org.springframework.security.core.userdetails.User(userId,user.getPassword(), authorities);
+        authorities.add(new SimpleGrantedAuthority((user.getRole())));
+       // System.out.println(authorities);
+        String password = passwordEncoder.encode(user.getPassword());
+       // System.out.println(password);
+        return new org.springframework.security.core.userdetails.User(userId,password, authorities);
     }
 }
